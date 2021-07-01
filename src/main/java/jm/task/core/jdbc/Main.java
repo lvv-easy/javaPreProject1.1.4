@@ -1,13 +1,8 @@
 package jm.task.core.jdbc;
 
-import com.mysql.fabric.jdbc.FabricMySQLDriver;
-import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {

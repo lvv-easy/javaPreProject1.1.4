@@ -26,7 +26,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="7ad539b6-c110-4594-ab1d-59759be27629">
-        <schema name="mydbtest" object-types="table, view, function" />
+        <schema name="mydbtest" object-types="table, view" />
       </connection>
     </loaded-nodes>
   </component>
