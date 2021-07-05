@@ -11,6 +11,7 @@ import java.util.List;
 public class UserDaoHibernateImpl extends Util implements UserDao {
 
     private SessionFactory sf = getSessionFactory();
+    Session session;
     public UserDaoHibernateImpl() {
     }
     @Override
@@ -23,7 +24,7 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
                     "LastName varchar(15)," +
                     "Age tinyint)").executeUpdate();
         } catch (Exception e) {
-
+            session.getTransaction().rollback();
             e.printStackTrace();
 
         }
@@ -35,7 +36,7 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
             s.beginTransaction();
             s.createSQLQuery("drop table if exists Users").executeUpdate();
         } catch (Exception e) {
-
+            session.getTransaction().rollback();
             e.printStackTrace();
         }
     }
@@ -48,6 +49,7 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
             s.getTransaction().commit();
             System.out.println("User с именем – " + name + " добавлен в базу данных");
         } catch (Exception e) {
+            session.getTransaction().rollback();
             e.printStackTrace();
         }
     }
@@ -62,6 +64,7 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
             s.getTransaction().commit();
             System.out.println("User с ID – " + id + " удалён");
         } catch (Exception e) {
+            session.getTransaction().rollback();
             e.printStackTrace();
         }
     }
@@ -73,6 +76,7 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
             s.beginTransaction();
             list = s.createQuery("from User").list();
         } catch (Exception e) {
+            session.getTransaction().rollback();
             e.printStackTrace();
         }
         return list;
@@ -84,6 +88,7 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
             s.beginTransaction();
             s.createQuery("delete User").executeUpdate();
         } catch (Exception e) {
+            session.getTransaction().rollback();
             e.printStackTrace();
         }
     }
