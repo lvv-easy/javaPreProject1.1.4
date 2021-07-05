@@ -1,26 +1,25 @@
 package jm.task.core.jdbc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
-@Table
+@Entity
+@Table(name = "Users")
 public class User {
     @Id
+    @GeneratedValue(generator = "increment")
     private Long id;
 
-    @Column
+    @Column(name = "Name")
     private String name;
 
-    @Column
+    @Column(name = "LastName")
     private String lastName;
 
-    @Column
+    @Column(name = "Age")
     private Byte age;
 
     public User() {
-
     }
 
     public User(String name, String lastName, Byte age) {
@@ -62,6 +61,19 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && name == user.name && lastName == user.lastName && age == user.age;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, lastName, age);
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
@@ -69,18 +81,5 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return getId().equals(user.getId()) && Objects.equals(getName(), user.getName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getAge(), user.getAge());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getLastName(), getAge());
     }
 }
